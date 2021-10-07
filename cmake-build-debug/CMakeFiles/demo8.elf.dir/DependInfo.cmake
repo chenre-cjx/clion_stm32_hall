@@ -30,6 +30,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/stm32f4xx_it.c" "D:/Study_Stm32/stm32_fire/Project/demo8/cmake-build-debug/CMakeFiles/demo8.elf.dir/Core/Src/stm32f4xx_it.c.obj"
   "D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/syscalls.c" "D:/Study_Stm32/stm32_fire/Project/demo8/cmake-build-debug/CMakeFiles/demo8.elf.dir/Core/Src/syscalls.c.obj"
   "D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/system_stm32f4xx.c" "D:/Study_Stm32/stm32_fire/Project/demo8/cmake-build-debug/CMakeFiles/demo8.elf.dir/Core/Src/system_stm32f4xx.c.obj"
+  "D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/tim.c" "D:/Study_Stm32/stm32_fire/Project/demo8/cmake-build-debug/CMakeFiles/demo8.elf.dir/Core/Src/tim.c.obj"
   "D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/usart.c" "D:/Study_Stm32/stm32_fire/Project/demo8/cmake-build-debug/CMakeFiles/demo8.elf.dir/Core/Src/usart.c.obj"
   "D:/Study_Stm32/stm32_fire/Project/demo8/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" "D:/Study_Stm32/stm32_fire/Project/demo8/cmake-build-debug/CMakeFiles/demo8.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj"
   "D:/Study_Stm32/stm32_fire/Project/demo8/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" "D:/Study_Stm32/stm32_fire/Project/demo8/cmake-build-debug/CMakeFiles/demo8.elf.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj"

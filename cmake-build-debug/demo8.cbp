@@ -106,6 +106,9 @@
 		<Unit filename="D:/Study_Stm32/stm32_fire/Project/demo8/Core/Inc/stm32f4xx_it.h">
 			<Option target="demo8.elf"/>
 		</Unit>
+		<Unit filename="D:/Study_Stm32/stm32_fire/Project/demo8/Core/Inc/tim.h">
+			<Option target="demo8.elf"/>
+		</Unit>
 		<Unit filename="D:/Study_Stm32/stm32_fire/Project/demo8/Core/Inc/usart.h">
 			<Option target="demo8.elf"/>
 		</Unit>
@@ -125,6 +128,9 @@
 			<Option target="demo8.elf"/>
 		</Unit>
 		<Unit filename="D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/system_stm32f4xx.c">
+			<Option target="demo8.elf"/>
+		</Unit>
+		<Unit filename="D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/tim.c">
 			<Option target="demo8.elf"/>
 		</Unit>
 		<Unit filename="D:/Study_Stm32/stm32_fire/Project/demo8/Core/Src/usart.c">
