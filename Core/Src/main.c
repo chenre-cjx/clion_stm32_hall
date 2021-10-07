@@ -68,9 +68,12 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern uint8_t tim5_capture_state;     //捕获状态标志
+extern uint32_t tim5_capture_value;     //输入捕获值
 /* USER CODE END 0 */
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
 /**
   * @brief  The application entry point.
   * @retval int
@@ -78,7 +81,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+    volatile long long int temp = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -109,12 +112,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-      if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12)){
-          HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_RESET);
-      }else {
-          HAL_GPIO_WritePin(GPIOF, GPIO_PIN_10, GPIO_PIN_SET);
-      }
-      HAL_Delay(50);
+     if (tim5_capture_state & 0x80){
+         temp = (tim5_capture_state & 0x3f);
+         temp *= 0xffffffff;
+         temp += tim5_capture_value;
+         printf("HIGHT: %11d us\r\n",temp);
+         tim5_capture_state = 0;
+     }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -122,6 +126,7 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
+#pragma clang diagnostic pop
 
 /**
   * @brief System Clock Configuration

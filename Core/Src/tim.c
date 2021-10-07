@@ -59,7 +59,7 @@ void MX_TIM5_Init(void)
   sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
   sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
-  sConfigIC.ICFilter = 3;
+  sConfigIC.ICFilter = 1;
   if (HAL_TIM_IC_ConfigChannel(&htim5, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
@@ -128,15 +128,51 @@ void HAL_TIM_IC_MspDeInit(TIM_HandleTypeDef* tim_icHandle)
 }
 
 /* USER CODE BEGIN 1 */
+//捕获状态标志
+//[7] 0:未捕获成功; 1:捕获成功一次
+//[6] 0:还未捕获低电平; 1:已捕获低电平
+//[5:0] 捕获低电平后溢出的次数
+//
+uint8_t tim5_capture_state = 0;     //捕获状态标志
+uint32_t tim5_capture_value = 0;     //输入捕获值
+
+
+
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
     printf("captuer\n\t");
+    if((tim5_capture_state & 0x80)== 0)
+    {
+        if (tim5_capture_state & 0x40){
+            tim5_capture_state |= 0x80;
+            tim5_capture_value = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+            TIM_RESET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1); //清除原来的极性设置
+            TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1,TIM_ICPOLARITY_RISING);    //设为上升沿触发
+        } else {
+            tim5_capture_state = 0;
+            tim5_capture_value = 0;     //清空计时器数值
+            tim5_capture_state |= 0x40;
+            __HAL_TIM_ENABLE(htim);     //关闭定时器
+            __HAL_TIM_SET_COUNTER(htim,0);      //清零CNT
+            TIM_RESET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1); //清除原来的极性设置
+            TIM_SET_CAPTUREPOLARITY(htim, TIM_CHANNEL_1,TIM_ICPOLARITY_FALLING);    //设为下降沿触发
+            __HAL_TIM_ENABLE(htim);     //使能定时器
+        }
+    }
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
-
+    if ((tim5_capture_state & 0x80) == 0){
+        if (tim5_capture_state & 0x40){
+            if ((tim5_capture_state & 0x3f) == 0x3f){
+                tim5_capture_state = 0x80;
+                tim5_capture_value = 0xffffffff;
+            }else {
+                tim5_capture_state++;
+            }
+        }
+    }
 }
 /* USER CODE END 1 */
 
